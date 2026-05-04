@@ -1,0 +1,37 @@
+service: flight-ai-platform
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.12
+  region: ap-northeast-2
+  stage: prod
+  environment:
+    DATABASE_URL: ${env:DATABASE_URL}
+    REDIS_URL: ${env:REDIS_URL}
+    OPENAI_API_KEY: ${env:OPENAI_API_KEY}
+
+package:
+  patterns:
+    - '!**'
+    - 'backend/app/**'
+
+functions:
+  flight-api:
+    handler: backend.app.lambda_handlers.flight_handler
+    events:
+      - httpApi:
+          path: /flight/{proxy+}
+          method: ANY
+  payment-api:
+    handler: backend.app.lambda_handlers.payment_handler
+    events:
+      - httpApi:
+          path: /payment/{proxy+}
+          method: ANY
+  monitoring-api:
+    handler: backend.app.lambda_handlers.monitoring_handler
+    events:
+      - httpApi:
+          path: /monitoring/{proxy+}
+          method: ANY
