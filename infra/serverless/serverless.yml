@@ -14,23 +14,23 @@ provider:
 package:
   patterns:
     - '!**'
-    - 'backend/app/**'
+    - '../../backend/app/**'
 
 functions:
   flight-api:
-    handler: backend.app.lambda_handlers.flight_handler
+    handler: backend.app.lambda_handlers.flight.handler
     events:
       - httpApi:
           path: /flight/{proxy+}
           method: ANY
   payment-api:
-    handler: backend.app.lambda_handlers.payment_handler
+    handler: backend.app.lambda_handlers.payment.handler
     events:
       - httpApi:
           path: /payment/{proxy+}
           method: ANY
   monitoring-api:
-    handler: backend.app.lambda_handlers.monitoring_handler
+    handler: backend.app.lambda_handlers.monitoring.handler
     events:
       - httpApi:
           path: /monitoring/{proxy+}
