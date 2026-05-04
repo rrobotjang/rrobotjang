@@ -1,0 +1,7 @@
+[
+  {"offer_id":"OF1","origin":"ICN","destination":"NRT","departure_date":"2026-08-01","price_total":220.0,"currency":"USD","embedding_score":0.91},
+  {"offer_id":"OF2","origin":"ICN","destination":"NRT","departure_date":"2026-08-01","price_total":280.0,"currency":"USD","embedding_score":0.87},
+  {"offer_id":"OF3","origin":"ICN","destination":"NRT","departure_date":"2026-08-01","price_total":410.0,"currency":"USD","embedding_score":0.81},
+  {"offer_id":"OF4","origin":"ICN","destination":"NRT","departure_date":"2026-08-01","price_total":520.0,"currency":"USD","embedding_score":0.75},
+  {"offer_id":"OF5","origin":"ICN","destination":"NRT","departure_date":"2026-08-01","price_total":180.0,"currency":"USD","embedding_score":0.66}
+]
