@@ -23,6 +23,23 @@
 3. 결제/예약 키(`external_offer_id`)는 소스별 unique 인덱스
 4. embedding은 `flight_offers` 또는 별도 `offer_embeddings`로 분리 가능
 
+
+## 3-1) 왜 `text-embedding-3-large`가 적합한가
+항공권 추천 도메인에서는 공항/도시/경유/환승시간/수하물/요금규정 같은 **의미적 유사도**가 중요합니다.
+
+선정 이유:
+1. **검색 품질 우선**: 다국어 질의(한/영), 짧은 키워드, 자연어 조건에서 고차원 임베딩이 유사도 분리에 유리
+2. **RAG 안정성**: 유사 문서 회수(retrieval) 품질이 좋아 LLM 추천 근거 품질이 함께 개선
+3. **도메인 확장성**: 향후 호텔/액티비티/여행 추천까지 같은 임베딩 스키마로 확장 가능
+4. **운영 전략과 궁합**: 배치 임베딩 + Redis 캐시와 결합하면 온라인 지연을 제어 가능
+
+운영 권장:
+- 기본값은 `text-embedding-3-large`로 시작
+- 비용 최적화가 필요하면
+  - 쿼리 임베딩만 large 유지
+  - 문서 임베딩은 small/증분 재임베딩으로 단계적 다운사이징
+  - A/B(CTR, booking conversion, NDCG@k)로 모델 선택
+
 ## 3) Redis 캐싱 전략
 - 키: `rec:{origin}:{destination}:{departure_date}:{budget}:{pref_hash}`
 - TTL: 5~15분 (가격 변동 고려)
