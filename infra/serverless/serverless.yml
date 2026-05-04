@@ -18,19 +18,19 @@ package:
 
 functions:
   flight-api:
-    handler: backend.app.lambda_handlers.flight.handler
+    handler: app.lambda_handlers.flight.handler
     events:
       - httpApi:
           path: /flight/{proxy+}
           method: ANY
   payment-api:
-    handler: backend.app.lambda_handlers.payment.handler
+    handler: app.lambda_handlers.payment.handler
     events:
       - httpApi:
           path: /payment/{proxy+}
           method: ANY
   monitoring-api:
-    handler: backend.app.lambda_handlers.monitoring.handler
+    handler: app.lambda_handlers.monitoring.handler
     events:
       - httpApi:
           path: /monitoring/{proxy+}
