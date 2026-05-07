@@ -12,25 +12,34 @@ provider:
     OPENAI_API_KEY: ${env:OPENAI_API_KEY}
 
 package:
+  individually: true
   patterns:
     - '!**'
-    - '../../backend/app/**'
 
 functions:
   flight-api:
-    handler: backend.app.lambda_handlers.flight.handler
+    handler: app.lambda_handlers.flight.handler
+    package:
+      patterns:
+        - '../../backend/app/**'
     events:
       - httpApi:
           path: /flight/{proxy+}
           method: ANY
   payment-api:
-    handler: backend.app.lambda_handlers.payment.handler
+    handler: app.lambda_handlers.payment.handler
+    package:
+      patterns:
+        - '../../backend/app/**'
     events:
       - httpApi:
           path: /payment/{proxy+}
           method: ANY
   monitoring-api:
-    handler: backend.app.lambda_handlers.monitoring.handler
+    handler: app.lambda_handlers.monitoring.handler
+    package:
+      patterns:
+        - '../../backend/app/**'
     events:
       - httpApi:
           path: /monitoring/{proxy+}
