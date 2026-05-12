@@ -18,13 +18,16 @@ export function SearchPage() {
   }
 
   return (
-    <div style={{ padding: 24 }}>
-      <h1>AI 자연어 항공권 검색</h1>
-      <textarea value={nl} onChange={(e) => setNl(e.target.value)} rows={3} style={{ width: 460 }} />
-      <div>
-        <button onClick={onSearch}>자연어로 추천 받기</button>
+    <div className="container">
+      <div className="card">
+        <h1>AI 자연어 항공권 검색</h1>
+        <p>PWA 설치 가능 + 반응형 UI 샘플</p>
+        <textarea value={nl} onChange={(e) => setNl(e.target.value)} rows={3} />
+        <div className="actions">
+          <button onClick={onSearch}>자연어로 추천 받기</button>
+        </div>
+        <pre>{answer}</pre>
       </div>
-      <pre>{answer}</pre>
     </div>
   )
 }
