@@ -1,26 +1,17 @@
 # auth-service
 
-## Responsibility
-TODO: define bounded context and ownership.
+Spring Boot scaffold for `auth-service`.
 
-## API
-- Health: \/actuator\/health
-- Version: \/api\/v1
+## Endpoints
+- `GET /api/v1/status`
+- `GET /actuator/health`
 
-## Data
-- Primary store: TODO
-- Cache: TODO
-
-## Events
-- Consumes: TODO
-- Produces: TODO
-
-## Local run
+## Run
 ```bash
-./gradlew bootRun
+gradle bootRun
 ```
 
-## Notes
-- Add OpenAPI spec
-- Add integration tests
-- Add observability (metrics + tracing)
+## Test
+```bash
+gradle test
+```

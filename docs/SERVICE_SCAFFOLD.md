@@ -1,19 +1,41 @@
-# Autonomous Mobility Fintech Interview Platform — Service Scaffold
+# Autonomous Mobility Fintech Interview Platform — Java Spring Boot Scaffold
 
-## Microservices
+## Implemented microservices
 
-1. **api-gateway**: Single entrypoint, JWT validation, rate limiting, routing.
-2. **auth-service**: Sign-up/login, OAuth, token lifecycle, role management.
-3. **user-profile-service**: Candidate profile, target companies, skill graph.
-4. **interview-session-service**: Mock interview orchestration, turn-by-turn state.
-5. **question-bank-service**: Domain-tagged technical/behavioral question catalog.
-6. **coding-test-service**: Problem delivery, starter code, test-case execution metadata.
-7. **evaluation-service**: LLM scoring pipeline (communication, technical depth, clarity).
-8. **payment-billing-service**: Subscription, wallet, in-app credits, invoice lifecycle.
-9. **notification-service**: Email/push/webhook for reminders and result publishing.
-10. **analytics-service**: Session analytics, weak-skill heatmap, readiness score trends.
+Each service now includes a runnable Spring Boot scaffold:
+- `build.gradle`, `settings.gradle`
+- `src/main/java/.../*Application.java`
+- `src/main/java/.../StatusController.java`
+- `src/main/resources/application.yml`
+- `src/test/java/.../*ApplicationTests.java`
 
-## Shared contracts
+Services:
+1. **api-gateway** (port 8080)
+2. **auth-service** (port 8081)
+3. **user-profile-service** (port 8082)
+4. **interview-session-service** (port 8083)
+5. **question-bank-service** (port 8084)
+6. **coding-test-service** (port 8085)
+7. **evaluation-service** (port 8086)
+8. **payment-billing-service** (port 8087)
+9. **notification-service** (port 8088)
+10. **analytics-service** (port 8089)
+
+## Default endpoints
+
+- `GET /api/v1/status`
+- `GET /actuator/health`
+
+Example response:
+```json
+{
+  "service": "auth-service",
+  "status": "UP",
+  "timestamp": "2026-05-15T10:00:00Z"
+}
+```
+
+## Shared contracts (next implementation step)
 
 - `POST /api/mock/start`
 - `POST /api/mock/respond`
@@ -22,17 +44,10 @@
 - `GET /api/results/{sessionId}`
 - `GET /api/recommendations/{userId}`
 
-## Event topics (Kafka)
+## Event topics (Kafka, next implementation step)
 
 - `interview.session.started`
 - `interview.answer.submitted`
 - `coding.submission.created`
 - `evaluation.completed`
 - `billing.subscription.renewed`
-
-## Baseline non-functional goals
-
-- P95 API latency < 300ms (non-LLM paths).
-- Strong idempotency for payment and code-submission endpoints.
-- Zero raw card-data storage (tokenization-only model).
-- End-to-end traceability with correlation IDs.
