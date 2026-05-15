@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: user-profile-service
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/user_profile_db}
+    username: ${DB_USERNAME:user_profile}
+    password: ${DB_PASSWORD:user_profile_pw}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        format_sql: true
+  flyway:
+    enabled: true
+
+server:
+  port: 8082
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

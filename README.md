@@ -33,3 +33,9 @@ Welcome to my GitHub profile! Here you'll find my journey through code, collabor
 💡 Let me know what makes you unique! Share your profession, top skills, favorite projects, and any public social links you want featured.
 -->
 
+
+
+## Local Run (No Docker)
+Use `docs/LOCAL_RUN_VENV.md` for running services on host via virtual environment helper scripts.
+
+- For nginx-backed local integration, run `./scripts/run_local_stack.sh`.
