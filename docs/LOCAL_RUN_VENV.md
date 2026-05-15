@@ -45,3 +45,12 @@ curl -s -X POST http://localhost:8081/api/auth/login \
 ```
 
 Then call validate with Bearer token.
+
+
+## 6) GitHub Actions CI
+
+- Workflow: `.github/workflows/services-ci.yml`
+- Trigger: push/PR when `services/**` changes
+- Runs `gradle clean test` for each service in a matrix
+
+This means CI validation works in GitHub Actions. Hosting/deploy still needs separate deploy steps.
