@@ -1,41 +1,71 @@
-# 👋 Hi, I'm rrobotjang!
+# rrobotjang - Interview Platform MSA
 
-Welcome to my GitHub profile! Here you'll find my journey through code, collaboration, and creative problem-solving. I'm passionate about building impactful projects and sharing knowledge with the developer community.
+## Production-ready deployment (Render + GitHub Actions)
 
-## 🚀 About Me
-- **Profession:Robot Deploy**  
-- **Top Skills:NLP**  
-- **Favorite Projects:LLM**  
-- **Learning:PYHSICS -> COM SCI -> ROBOTICS**  
-- **Fun Fact:Never BEEN to NYC**  
+### 1) Auto-deploy config
+- `render.yaml` defines 3 deployable services:
+  - `rrobotjang-api-gateway`
+  - `rrobotjang-auth-service`
+  - `rrobotjang-user-profile-service`
+- Health checks for each service:
+  - `GET /actuator/health`
 
-## 🛠️ Tech Stack
-<!-- Add your top technologies here -->
-- Languages: C++,python
-- Frameworks: ROS2
-- Tools: ISSAC SIM
+### 2) GitHub Actions CD on `main`
+- Workflow: `.github/workflows/deploy-render.yml`
+- Trigger:
+  - push to `main`
+  - manual `workflow_dispatch`
+- Required GitHub Secrets:
+  - `RENDER_DEPLOY_HOOK_API_GATEWAY`
+  - `RENDER_DEPLOY_HOOK_AUTH_SERVICE`
+  - `RENDER_DEPLOY_HOOK_USER_PROFILE_SERVICE`
 
-## 🌟 Featured Projects
-<!-- Showcase a few repositories you're proud of -->
-- [Project 1] —
+### 3) Render environment variables
+Set these in Render service dashboard:
 
+#### auth-service
+- `JWT_SECRET` (required, secure random >= 32 chars)
 
-## 📫 Connect with Me
-<!-- Add your social links -->
+#### user-profile-service
+- `DB_URL`
+- `DB_USERNAME`
+- `DB_PASSWORD`
 
-- [Email](mailto:rrobotjang@gmail.com)
+#### api-gateway
+- `AUTH_SERVICE_URL`
+- `USER_PROFILE_SERVICE_URL`
+
+> Note: `AUTH_SERVICE_URL` and `USER_PROFILE_SERVICE_URL` are wired in `render.yaml` via `fromService`.
 
 ---
 
-> _“Code is like humor. When you have to explain it, it’s bad.”_ – Cory House
+## Local server run (no Docker)
 
-<!--
-💡 Let me know what makes you unique! Share your profession, top skills, favorite projects, and any public social links you want featured.
--->
+### Quick start
+```bash
+./scripts/run_local_stack.sh
+```
 
+### Endpoints
+- Gateway UI: `http://localhost:8080/`
+- NGINX entrypoint: `http://localhost:8090/` (if nginx installed)
+- NGINX health: `http://localhost:8090/nginx-health`
 
+### Auth flow test
+```bash
+curl -s -X POST http://localhost:8081/api/auth/login \
+  -H 'Content-Type: application/json' \
+  -d '{"username":"dev"}'
+```
 
-## Local Run (No Docker)
-Use `docs/LOCAL_RUN_VENV.md` for running services on host via virtual environment helper scripts.
+---
 
-- For nginx-backed local integration, run `./scripts/run_local_stack.sh`.
+## CI
+- Workflow: `.github/workflows/services-ci.yml`
+- Runs `gradle clean test` per service on push/PR changes in `services/**`
+
+## Key paths
+- NGINX config: `infra/nginx/nginx.conf`
+- Local stack runner: `scripts/run_local_stack.sh`
+- Local venv/doc guide: `docs/LOCAL_RUN_VENV.md`
+- API Gateway web UI: `services/api-gateway/src/main/java/com/rrobotjang/apigateway/InterviewWebController.java`
