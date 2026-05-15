@@ -1,0 +1,25 @@
+name: deploy-render
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Render deploy hook (api-gateway)
+        run: curl -fsS -X POST "$RENDER_DEPLOY_HOOK_API_GATEWAY"
+        env:
+          RENDER_DEPLOY_HOOK_API_GATEWAY: ${{ secrets.RENDER_DEPLOY_HOOK_API_GATEWAY }}
+
+      - name: Trigger Render deploy hook (auth-service)
+        run: curl -fsS -X POST "$RENDER_DEPLOY_HOOK_AUTH_SERVICE"
+        env:
+          RENDER_DEPLOY_HOOK_AUTH_SERVICE: ${{ secrets.RENDER_DEPLOY_HOOK_AUTH_SERVICE }}
+
+      - name: Trigger Render deploy hook (user-profile-service)
+        run: curl -fsS -X POST "$RENDER_DEPLOY_HOOK_USER_PROFILE_SERVICE"
+        env:
+          RENDER_DEPLOY_HOOK_USER_PROFILE_SERVICE: ${{ secrets.RENDER_DEPLOY_HOOK_USER_PROFILE_SERVICE }}

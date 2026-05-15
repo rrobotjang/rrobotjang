@@ -1,0 +1,54 @@
+services:
+  - type: web
+    name: rrobotjang-auth-service
+    env: java
+    rootDir: services/auth-service
+    plan: free
+    buildCommand: gradle clean bootJar
+    startCommand: java -jar build/libs/*.jar
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: JWT_SECRET
+        sync: false
+
+  - type: web
+    name: rrobotjang-user-profile-service
+    env: java
+    rootDir: services/user-profile-service
+    plan: free
+    buildCommand: gradle clean bootJar
+    startCommand: java -jar build/libs/*.jar
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: DB_URL
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+
+  - type: web
+    name: rrobotjang-api-gateway
+    env: java
+    rootDir: services/api-gateway
+    plan: free
+    buildCommand: gradle clean bootJar
+    startCommand: java -jar build/libs/*.jar
+    healthCheckPath: /actuator/health
+    envVars:
+      - key: SPRING_PROFILES_ACTIVE
+        value: prod
+      - key: AUTH_SERVICE_URL
+        fromService:
+          type: web
+          name: rrobotjang-auth-service
+          property: host
+      - key: USER_PROFILE_SERVICE_URL
+        fromService:
+          type: web
+          name: rrobotjang-user-profile-service
+          property: host
