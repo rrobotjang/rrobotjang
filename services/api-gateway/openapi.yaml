@@ -1,0 +1,25 @@
+openapi: 3.0.3
+info:
+  title: API Gateway Contract
+  version: 1.0.0
+paths:
+  /api/auth/login:
+    post:
+      summary: Routed to auth-service login endpoint
+      responses:
+        '200':
+          description: JWT token issued
+  /api/auth/validate:
+    get:
+      summary: Routed to auth-service JWT-protected validation endpoint
+      responses:
+        '200':
+          description: Token valid
+        '401':
+          description: Unauthorized
+  /api/profile/me:
+    get:
+      summary: Routed to user-profile-service profile endpoint
+      responses:
+        '200':
+          description: Profile data

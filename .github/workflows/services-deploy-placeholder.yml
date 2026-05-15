@@ -1,0 +1,13 @@
+name: services-deploy-placeholder
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy-note:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deployment note
+        run: |
+          echo "This repository currently provides CI builds/tests for services."
+          echo "To run as a hosted service, add deployment steps (e.g., Render/Fly.io/AWS/GCP/K8s)."
