@@ -10,3 +10,8 @@ management:
     web:
       exposure:
         include: health,info
+
+security:
+  jwt:
+    secret: ${JWT_SECRET:change-me-to-a-32-byte-minimum-secret-key}
+    expiration-seconds: 3600

@@ -20,7 +20,8 @@ public class StatusController {
         return Map.of(
             "service", appName,
             "status", "UP",
-            "timestamp", Instant.now().toString()
+            "timestamp", Instant.now().toString(),
+            "routes", new String[]{"/api/auth/** -> auth-service", "/api/profile/** -> user-profile-service"}
         );
     }
 }
