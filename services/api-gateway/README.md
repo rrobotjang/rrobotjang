@@ -7,6 +7,7 @@ Spring Cloud Gateway service.
 - `/api/profile/**` -> `user-profile-service`
 
 ## Endpoints
+- `GET /` (Interview Web UI)
 - `GET /api/v1/status`
 - `GET /actuator/health`
 - `GET /swagger-ui.html`
