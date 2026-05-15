@@ -51,3 +51,9 @@ Example response:
 - `coding.submission.created`
 - `evaluation.completed`
 - `billing.subscription.renewed`
+
+## MSA definition used in this repo
+
+This scaffold treats each service as an independently deployable bounded context.
+To be considered production MSA, we will enforce: database-per-service, contract versioning,
+async event integration, and independent scaling/deployment per service.
